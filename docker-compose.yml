@@ -1,0 +1,37 @@
+services:
+  jupyter1:
+    build:
+      context: ./FeatureEngineering
+      dockerfile: Dockerfile
+    container_name: FeatureEngineering
+    volumes:
+      - ./shared:/home/jovyan/work
+      - ./FeatureEngineering:/home/jovyan/work/1.FeatureEngineering
+    ports:
+      - "8888:8888"
+
+  jupyter2:
+    build:
+      context: ./AnalyzeCorrelations
+      dockerfile: Dockerfile
+    container_name: AnalyzeCorrelations
+    volumes:
+      - ./shared:/home/jovyan/work
+      - ./AnalyzeCorrelations:/home/jovyan/work/2.AnalyzeCorrelations
+    ports:
+      - "8889:8888"
+
+  streamlitfolium:
+    build: 
+      context: ./VisualizeGeoheatmap
+      dockerfile: Dockerfile
+    container_name: VisualizeWithStreamlit
+    volumes:
+      - ./VisualizeGeoheatmap:/app
+    ports:
+      - "8501:8501"
+    command: streamlit run /app/heatmap.py
+
+volumes:
+  shared:
+    driver: local

@@ -1,0 +1,22 @@
+FROM jupyter/scipy-notebook:latest
+
+# Install Java
+USER root
+RUN apt-get update && apt-get install -y openjdk-11-jdk && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Set JAVA_HOME environment variable
+ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-arm64/
+
+# Switch back to jovyan user
+USER $NB_UID
+
+# Set Spark environment variables
+ENV PATH=$JAVA_HOME/bin:$PATH
+
+# Install additional packages
+RUN pip install statsmodels plotly
+
+# Disable password prompt for jupyter
+RUN echo "c.NotebookApp.token = ''" >> /home/jovyan/.jupyter/jupyter_notebook_config.py

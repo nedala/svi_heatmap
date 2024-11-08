@@ -1,0 +1,23 @@
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore temporary or log files
+*.log
+*.tmp
+*.bak
+
+# Ignore Python cache files
+__pycache__/
+*.pyc
+
+# Ignore Docker-specific files
+*.tar
+*.pid
+
+# Ignore files related to virtual environments (if any)
+venv/
+.env/
+*.env
+
+# Ignore the shared volume directory (optional, if you don't want shared data in version control)
+shared/
